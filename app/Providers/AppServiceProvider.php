@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
+        Model::preventSilentlyDiscardingAttributes(! $this->app->environment('production'));
 
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Nasabah::class, NasabahPolicy::class);
@@ -71,21 +71,21 @@ class AppServiceProvider extends ServiceProvider
         User::created(fn (User $user) => app(AuditLogService::class)->record(
             'user.created',
             $user,
-            auth()->user() instanceof User ? auth()->user() : null,
+            $this->authenticatedUser(),
             ['role' => $user->role->value],
         ));
 
         User::updated(fn (User $user) => app(AuditLogService::class)->record(
             'user.updated',
             $user,
-            auth()->user() instanceof User ? auth()->user() : null,
+            $this->authenticatedUser(),
             ['changes' => $user->getChanges()],
         ));
 
         Nasabah::created(fn (Nasabah $customer) => app(AuditLogService::class)->record(
             'customer.created',
             $customer,
-            auth()->user() instanceof User ? auth()->user() : null,
+            $this->authenticatedUser(),
             ['account_number' => $customer->no_rekening, 'nis' => $customer->nis],
         ));
 
@@ -95,9 +95,16 @@ class AppServiceProvider extends ServiceProvider
             app(AuditLogService::class)->record(
                 $action,
                 $customer,
-                auth()->user() instanceof User ? auth()->user() : null,
+                $this->authenticatedUser(),
                 ['changed_fields' => array_keys($customer->getChanges())],
             );
         });
+    }
+
+    private function authenticatedUser(): ?User
+    {
+        $user = auth()->guard()->user();
+
+        return $user instanceof User ? $user : null;
     }
 }

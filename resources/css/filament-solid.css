@@ -252,9 +252,19 @@
     padding: 18px !important;
 }
 
+.fi-wi-stats-overview .fi-section-not-contained {
+    padding: 24px;
+}
+
 .fi-wi-stats-overview-stat-value {
     font-size: 24px !important;
     letter-spacing: 0;
+}
+
+@media (max-width: 639px) {
+    .fi-wi-stats-overview .fi-section-not-contained {
+        padding: 16px;
+    }
 }
 
 .bank-admin-widget {
@@ -607,9 +617,9 @@
 
 .fi-input,
 .fi-select-input,
-.fi-textarea {
+.fi-fo-textarea textarea {
     color: var(--bank-ink) !important;
-    background: var(--bank-surface) !important;
+    background-color: transparent !important;
 }
 
 .fi-fo-field-wrp-label,
@@ -912,8 +922,7 @@
 
 .fi-icon-btn:focus-visible,
 .fi-btn:focus-visible,
-.fi-sidebar-item-btn:focus-visible,
-.fi-input-wrp:focus-within {
+.fi-sidebar-item-btn:focus-visible {
     outline: 3px solid var(--bank-focus) !important;
     outline-offset: 2px;
 }
