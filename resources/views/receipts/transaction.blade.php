@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Struk TRX-{{ str_pad((string) $transaction->id, 8, '0', STR_PAD_LEFT) }}</title>
+    @include('partials.public-font')
     <link rel="stylesheet" href="{{ asset('css/bank-mini.css') }}">
 </head>
 <body class="print-page">

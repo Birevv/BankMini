@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="referrer" content="same-origin">
     <title>@yield('title', 'Portal Nasabah') · {{ config('bank.name') }}</title>
+    @include('partials.public-font')
     <link rel="stylesheet" href="{{ asset('css/bank-mini.css') }}">
 </head>
 <body class="portal-page">
@@ -29,5 +30,6 @@
         @yield('content')
     </main>
     <script src="{{ asset('js/form-safety.js') }}" defer></script>
+    <script src="{{ asset('js/page-transitions.js') }}" defer></script>
 </body>
 </html>

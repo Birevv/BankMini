@@ -40,6 +40,59 @@ class DesignSystemTest extends TestCase
         $this->assertStringContainsString('.fi-pagination-records-per-page-select', $panelTheme);
     }
 
+    public function testPublicPagesUseTheAdminPanelFont(): void
+    {
+        $publicTheme = (string) file_get_contents(public_path('css/bank-mini.css'));
+        $applicationTheme = (string) file_get_contents(resource_path('css/app.css'));
+        $publicFontHead = (string) file_get_contents(resource_path('views/partials/public-font.blade.php'));
+        $viteConfig = (string) file_get_contents(base_path('vite.config.js'));
+
+        $this->assertStringContainsString('inter-latin-wght-normal-NRMW37G5.woff2', $publicFontHead);
+        $this->assertStringContainsString('rel="preload"', $publicFontHead);
+        $this->assertStringNotContainsString('@import url(', $publicTheme);
+        $this->assertStringContainsString('"Inter Variable", Inter', $publicTheme);
+        $this->assertStringContainsString("'Inter Variable', Inter", $applicationTheme);
+        $this->assertStringNotContainsString('Instrument Sans', $publicTheme.$applicationTheme.$viteConfig);
+        $this->assertStringContainsString('body, button, input, select, textarea { font-family: inherit; }', $publicTheme);
+    }
+
+    public function testHomepageProgramCardUsesReadableResponsiveSizing(): void
+    {
+        $publicTheme = (string) file_get_contents(public_path('css/bank-mini.css'));
+
+        $this->assertStringContainsString('grid-template-columns: minmax(0, 1.25fr) minmax(340px, .75fr);', $publicTheme);
+        $this->assertStringContainsString('font-size: clamp(32px, 3vw, 38px);', $publicTheme);
+        $this->assertStringContainsString('@media (max-width: 1020px)', $publicTheme);
+        $this->assertStringContainsString('.program-values > div { grid-template-columns: auto minmax(0, 1fr);', $publicTheme);
+    }
+
+    public function testPublicPagesUseAccessiblePageTransitions(): void
+    {
+        $transitionScript = (string) file_get_contents(public_path('js/page-transitions.js'));
+        $publicTheme = (string) file_get_contents(public_path('css/bank-mini.css'));
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('js/page-transitions.js', false);
+
+        $this->get(route('internal.login'))
+            ->assertOk()
+            ->assertSee('js/page-transitions.js', false);
+
+        $this->get(route('nasabah.login'))
+            ->assertOk()
+            ->assertSee('js/page-transitions.js', false);
+
+        $this->assertStringContainsString("window.matchMedia('(prefers-reduced-motion: reduce)')", $transitionScript);
+        $this->assertStringContainsString("link.hasAttribute('download')", $transitionScript);
+        $this->assertStringContainsString('destination.origin !== window.location.origin', $transitionScript);
+        $this->assertStringNotContainsString('transform: translateY(6px)', $publicTheme);
+        $this->assertStringNotContainsString('transform: translateY(-4px)', $publicTheme);
+        $this->assertStringContainsString('transition: opacity 140ms ease;', $publicTheme);
+        $this->assertStringContainsString('scroll-behavior: smooth', $publicTheme);
+        $this->assertStringContainsString('@media (prefers-reduced-motion: reduce)', $publicTheme);
+    }
+
     public function testHomepageRendersClearRoleBasedEntryPoints(): void
     {
         $this->get(route('home'))

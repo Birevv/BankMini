@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="referrer" content="same-origin">
     <title>@yield('title') · {{ config('bank.name') }}</title>
+    @include('partials.public-font')
     <link rel="stylesheet" href="{{ asset('css/bank-mini.css') }}">
 </head>
 <body class="auth-page">
@@ -28,5 +29,6 @@
         </main>
     </div>
     <script src="{{ asset('js/form-safety.js') }}" defer></script>
+    <script src="{{ asset('js/page-transitions.js') }}" defer></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="referrer" content="same-origin">
     <title>{{ config('bank.name') }}</title>
+    @include('partials.public-font')
     <link rel="stylesheet" href="{{ asset('css/bank-mini.css') }}">
 </head>
 <body class="landing-page">
@@ -71,5 +72,6 @@
         </section>
     </main>
     <footer class="landing-footer"><span>{{ config('bank.name') }}</span><small>© {{ now()->year }} · Sistem Informasi E-Teller Sekolah</small></footer>
+    <script src="{{ asset('js/page-transitions.js') }}" defer></script>
 </body>
 </html>

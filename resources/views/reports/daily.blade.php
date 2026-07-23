@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laporan Harian {{ $report->tanggal->format('d-m-Y') }}</title>
+    @include('partials.public-font')
     <link rel="stylesheet" href="{{ asset('css/bank-mini.css') }}">
 </head>
 <body class="print-page">
