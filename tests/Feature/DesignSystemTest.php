@@ -21,11 +21,23 @@ class DesignSystemTest extends TestCase
             $this->assertStringNotContainsString('rgba(', $stylesheet);
         }
 
-        $this->assertFileExists(public_path('css/app/bank-mini-panel-theme.css'));
         $this->assertStringContainsString(
-            "@import url('../filament/filament/app.css');",
-            (string) file_get_contents(public_path('css/app/bank-mini-panel-theme.css')),
+            "@import '../../vendor/filament/filament/resources/css/theme.css';",
+            (string) file_get_contents(resource_path('css/filament-solid.css')),
         );
+
+        $this->assertStringContainsString(
+            "'resources/css/filament-solid.css'",
+            (string) file_get_contents(base_path('vite.config.js')),
+        );
+
+        $panelTheme = (string) file_get_contents(resource_path('css/filament-solid.css'));
+
+        $this->assertStringContainsString('.fi-body .fi-main.fi-width-full', $panelTheme);
+        $this->assertStringContainsString('.fi-body .fi-sidebar-item-label', $panelTheme);
+        $this->assertStringContainsString('.fi-body .fi-ta-table', $panelTheme);
+        $this->assertStringContainsString('.fi-body .bank-data-table .fi-ta-header-toolbar', $panelTheme);
+        $this->assertStringContainsString('.fi-pagination-records-per-page-select', $panelTheme);
     }
 
     public function testHomepageRendersClearRoleBasedEntryPoints(): void

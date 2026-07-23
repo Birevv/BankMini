@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('jenis_trans', 20)->index();
             $table->unsignedBigInteger('nominal');
             $table->timestamps();
-
             $table->index(['id_nasabah', 'tanggal']);
             $table->index(['id_user', 'tanggal']);
         });
@@ -61,7 +60,6 @@ return new class extends Migration
             $table->foreignId('approved_by')->nullable()->constrained('users')->cascadeOnUpdate()->restrictOnDelete();
             $table->dateTime('approved_at')->nullable();
             $table->timestamps();
-
             $table->unique(['id_teller', 'tanggal']);
         });
 

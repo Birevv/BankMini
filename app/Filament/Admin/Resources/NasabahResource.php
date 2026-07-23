@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\NasabahResource\Pages;
+use App\Filament\Shared\Tables\TableToolbar;
 use App\Models\Nasabah;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -90,7 +91,7 @@ class NasabahResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return TableToolbar::configure($table, 'nasabah terdaftar')
             ->columns([
                 TextColumn::make('no_rekening')->label('No. Rekening')->searchable()->sortable(),
                 TextColumn::make('nis')->label('NIS')->searchable()->sortable(),

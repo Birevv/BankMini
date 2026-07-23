@@ -11,6 +11,11 @@ class Dashboard extends BaseDashboard
 {
     protected static ?string $title = 'Dashboard Administrator';
 
+    public function getColumns(): int|array
+    {
+        return 1;
+    }
+
     public function getSubheading(): string|Htmlable|null
     {
         return 'Pantau operasional sistem tanpa mengubah ledger transaksi.';

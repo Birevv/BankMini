@@ -18,7 +18,7 @@ class JournalTable
 {
     public static function configure(Table $table): Table
     {
-        return $table
+        return TableToolbar::configure($table, 'entri jurnal tercatat')
             ->columns([
                 TextColumn::make('transaction.id')
                     ->label('No. Transaksi')

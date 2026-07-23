@@ -15,8 +15,6 @@ use App\Policies\NasabahPolicy;
 use App\Policies\TransaksiPolicy;
 use App\Policies\UserPolicy;
 use App\Services\AuditLogService;
-use Filament\Support\Assets\Theme;
-use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Database\Eloquent\Model;
@@ -33,10 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        FilamentAsset::register([
-            Theme::make('bank-mini-panel-theme', resource_path('css/filament-solid.css')),
-        ]);
-
         Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
 
         Gate::policy(User::class, UserPolicy::class);

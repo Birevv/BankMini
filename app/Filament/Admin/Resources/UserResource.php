@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Enums\UserRole;
 use App\Filament\Admin\Resources\UserResource\Pages;
+use App\Filament\Shared\Tables\TableToolbar;
 use App\Models\User;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
@@ -78,7 +79,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return TableToolbar::configure($table, 'petugas terdaftar')
             ->columns([
                 TextColumn::make('username')->label('Username')->searchable()->sortable(),
                 TextColumn::make('nama_petugas')->label('Nama Petugas')->searchable()->sortable(),

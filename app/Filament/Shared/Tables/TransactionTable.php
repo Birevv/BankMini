@@ -16,7 +16,7 @@ class TransactionTable
 {
     public static function configure(Table $table): Table
     {
-        return $table
+        return TableToolbar::configure($table, 'transaksi tercatat')
             ->columns([
                 TextColumn::make('id')
                     ->label('No. Transaksi')

@@ -5,6 +5,7 @@ namespace App\Filament\Supervisor\Resources;
 use App\Actions\DailyReports\ApproveDailyReportAction;
 use App\Actions\DailyReports\RejectDailyReportAction;
 use App\Enums\DailyReportStatus;
+use App\Filament\Shared\Tables\TableToolbar;
 use App\Filament\Supervisor\Resources\LaporanHarianResource\Pages;
 use App\Models\LaporanHarianTeller;
 use App\Models\User;
@@ -80,7 +81,7 @@ class LaporanHarianResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return TableToolbar::configure($table, 'laporan tersedia')
             ->columns([
                 TextColumn::make('tanggal')->label('Tanggal')->date('d M Y')->sortable(),
                 TextColumn::make('teller.nama_petugas')->label('Teller')->searchable()->sortable(),
